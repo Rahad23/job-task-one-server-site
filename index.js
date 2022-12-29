@@ -72,6 +72,21 @@ app.delete('/comments/:id', async(req, res)=>{
     const result = await postcomment.deleteOne(query);
     res.send(result);
 })
+// comment update api
+app.put('/updateComments/:id', async(req, res)=>{
+    const id = req.params.id;
+    // console.log(id);
+    const filter = {_id: ObjectId(id)};
+    const options = {upsert: true}; 
+    const updatedDoc = {
+        $set:{
+            pay: 'success'
+        }
+    }
+
+    const result = await orderCollection.updateOne(filter, updatedDoc, options);
+    res.send(result);
+})
 app.get('/', (req, res)=>{
     res.send('server is running');
 })
