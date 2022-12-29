@@ -47,7 +47,7 @@ app.get('/userPosts', async(req, res)=>{
 app.post('/comments', async(req, res)=>{
     try{
     const data = req.body;
-    console.log(data);
+    // console.log(data);
     const result = await postcomment.insertOne(data);
     res.send(result);
     }
@@ -58,7 +58,10 @@ app.post('/comments', async(req, res)=>{
 // comment get api
 app.get('/comments', async(req, res)=>{
     const query = {};
-    const result = await postcomment.find(query).toArray();
+    const sortingComment =  postcomment.find(query).sort({
+        commentTime: -1
+    });
+    const result = await sortingComment.toArray();
     res.send(result);
 })
 
